@@ -3,7 +3,7 @@ output "instance_id" {
 }
 
 output "public_ip" {
-  value = alicloud_instance.instance.public_ip
+  value       = var.assign_public_ip ? alicloud_eip.eip[0].ip_address : "Not assigned"
 }
 
 output "private_ip" {
@@ -11,6 +11,5 @@ output "private_ip" {
 }
 
 output "new_sg_id" {
-  description = "Naye banaye gaye security group ki ID."
   value       = var.create_sg ? alicloud_security_group.sg[0].id : "Not created"
 }
