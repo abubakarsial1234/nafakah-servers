@@ -6,6 +6,6 @@ dependency "vpc" {
 }
 inputs = {
   vpc_id              = dependency.vpc.outputs.vpc_id
-  availability_zone   = "me-central-1a" 
-  vswitch_cidr        = "172.27.112.0/20"  
+  availability_zone   = "me-central-1b"  
+  vswitch_cidr        = "172.27.100.0/24" 
 }
