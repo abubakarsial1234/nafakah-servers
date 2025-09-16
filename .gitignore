@@ -1,0 +1,37 @@
+# Terragrunt-specific files and directories
+**/.terragrunt-cache/
+.terragrunt-cache/
+terragrunt-debug.tfvars
+
+# Terraform-specific files and directories
+**/.terraform/
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*.backup
+*.tfplan
+crash.log
+crash.*.log
+
+# Terraform Cloud/Enterprise credentials
+.terraformrc
+terraform.rc
+
+# Sensitive variable files (Best Practice)
+# Kabhi bhi .tfvars files ko commit na karein.
+*.tfvars
+*.tfvars.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Override files
+*.override.tf
+*.override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Common OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
