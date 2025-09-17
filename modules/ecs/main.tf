@@ -30,7 +30,7 @@ resource "alicloud_instance" "instance" {
   security_groups = var.create_sg ? [alicloud_security_group.sg[0].id] : var.security_group_ids
 
   system_disk_category = "cloud_essd"
-  system_disk_size     = 50
+  system_disk_size     = 100
 
   tags = {
     CreatedBy = "Terragrunt"

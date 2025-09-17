@@ -14,13 +14,17 @@ resource "alicloud_security_group_rule" "rds_ingress" {
   priority                 = 1
   security_group_id        = alicloud_security_group.rds_sg[0].id
   source_security_group_id = each.value.source_sg_id
+  nic_type                 = "intranet" 
 }
+
 
 resource "alicloud_db_instance" "rds" {
   engine               = var.engine
   engine_version       = var.engine_version
+  category             = var.category
   instance_type        = var.instance_type
   instance_storage     = var.instance_storage
+  db_instance_storage_type = var.db_instance_storage_type
   instance_charge_type = "Postpaid"
   instance_name        = var.instance_name
   vswitch_id           = var.vswitch_id
