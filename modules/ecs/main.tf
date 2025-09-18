@@ -40,6 +40,7 @@ resource "alicloud_instance" "instance" {
 resource "alicloud_eip" "eip" {
   count = var.assign_public_ip ? 1 : 0
   name  = "${var.instance_name}-eip"
+  bandwidth = 12
 }
 
 resource "alicloud_eip_association" "eip_assoc" {
