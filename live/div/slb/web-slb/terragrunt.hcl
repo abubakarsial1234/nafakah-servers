@@ -7,7 +7,7 @@ dependency "vswitch_b" {
 }
 
 dependency "ecs_web_server" {
-  config_path = "../../ecs/web-server"
+  config_path = "../../ecs/NAFAKAH-SSRS"
 }
 
 inputs = {

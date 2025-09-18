@@ -12,7 +12,7 @@
 #   config_path = "../../vswitch/vswitch-2"
 # }
 # dependency "ecs_server" {
-#   config_path = "../../ecs/web-server"
+#   config_path = "../../ecs/NAFAKAH-SSRS"
 # }
 
 

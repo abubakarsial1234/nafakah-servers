@@ -6,14 +6,12 @@
 #   config_path = "../../vpc"
 # }
 # # High Availability ke liye dono VSwitches ki zaroorat hai
-# dependency "vswitch_a" {
+# dependency "vswitch" {
 #   config_path = "../../vswitch/vswitch-1"
 # }
-# dependency "vswitch_b" {
-#   config_path = "../../vswitch/vswitch-2"
-# }
+
 # dependency "ecs_server" {
-#   config_path = "../../ecs/web-server"
+#   config_path = "../../ecs/NAFAKAH-SSRS"
 # }
 
 # inputs = {
@@ -23,13 +21,11 @@
 #   instance_storage         = 50
 #   instance_name            = "nafakah-dev-db-"
 #   db_instance_storage_type = "cloud_essd"
-#   category                 = "HighAvailability"
+#   category                 = "Basic"
 
 #   # fix: list instead of string
-#   vswitch_id = [
-#     dependency.vswitch_a.outputs.vswitch_id,
-#     dependency.vswitch_b.outputs.vswitch_id
-#   ]
+#   vswitch_id = dependency.vswitch.outputs.vswitch_id,
+
 
 #   vpc_id    = dependency.vpc.outputs.vpc_id
 #   create_sg = true
