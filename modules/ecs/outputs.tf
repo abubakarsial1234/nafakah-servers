@@ -13,3 +13,8 @@ output "private_ip" {
 output "new_sg_id" {
   value       = var.create_sg ? alicloud_security_group.sg[0].id : "Not created"
 }
+
+output "instance_name" {
+  description = "The name of the ECS instance."
+  value       = alicloud_instance.instance.instance_name
+}

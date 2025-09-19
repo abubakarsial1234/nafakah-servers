@@ -15,14 +15,13 @@
 # }
 
 # inputs = {
-#   engine                   = "SQLServer"
-#   engine_version           = "2022_ent"
-#   instance_type            = "rds.mssql.s2.large"
-#   instance_storage         = 50
-#   instance_name            = "nafakah-dev-db-"
-#   db_instance_storage_type = "cloud_essd"
+#   engine                   = "SQLServer"           # SQL Server selected
+#   engine_version           = "2022_std"            # 2022 EE (Always On) selected 
+#   instance_type            = "rds.mssql.s1.small"  # Instance type from screenshot
+#   instance_storage         = 50                    # Storage 50GB
+#   instance_name            = "nafakah-dev-db-"     # Instance name
+#   db_instance_storage_type = "cloud_essd"          # ESSD selected in screenshot
 #   category                 = "Basic"
-
 #   # fix: list instead of string
 #   vswitch_id = dependency.vswitch.outputs.vswitch_id,
 

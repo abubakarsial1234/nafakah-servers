@@ -1,4 +1,8 @@
 
+data "alicloud_regions" "current" {
+  current = true
+}
+
 resource "alicloud_security_group" "sg" {
   count  = var.create_sg ? 1 : 0
   name   = var.sg_name
@@ -8,26 +12,37 @@ resource "alicloud_security_group" "sg" {
 resource "alicloud_security_group_rule" "ingress" {
   for_each = { for rule in var.sg_rules : rule.port => rule }
 
-  type                   = "ingress"
-  ip_protocol            = each.value.protocol
-  port_range             = each.value.port
+  type                     = "ingress"
+  ip_protocol              = each.value.protocol
+  port_range               = each.value.port
   
-  priority               = 1
-  security_group_id      = alicloud_security_group.sg[0].id
+  priority                 = 1
+  security_group_id        = alicloud_security_group.sg[0].id
   
   cidr_ip                  = lookup(each.value, "cidr_ip", null)
   source_security_group_id = lookup(each.value, "source_sg_id", null)
-
 }
 
-
 resource "alicloud_instance" "instance" {
-  instance_type   = var.instance_type
-  image_id        = var.image_id
-  instance_name   = var.instance_name
-  vswitch_id      = var.vswitch_id
-  password        = var.instance_password
-  security_groups = var.create_sg ? [alicloud_security_group.sg[0].id] : var.security_group_ids
+  instance_type        = var.instance_type
+  image_id             = var.image_id
+  instance_name        = var.instance_name
+  vswitch_id           = var.vswitch_id
+  password             = var.instance_password
+  security_groups      = var.create_sg ? [alicloud_security_group.sg[0].id] : var.security_group_ids
+
+  #SLS Configuration
+  user_data = <<-EOF
+    <powershell>
+    # Download and Install Logtail Agent for Windows
+    $region = "${data.alicloud_regions.current.regions[0].id}"
+    Invoke-WebRequest -Uri "http://logtail-release-$region.oss-accelerate.aliyuncs.com/windows/logtail.msi" -OutFile "C:\\logtail.msi"
+    Start-Process msiexec.exe -ArgumentList "/i C:\\logtail.msi /quiet" -Wait
+
+    # Configure User-defined ID (must match the ID in the machine group)
+    & "C:\\Program Files\\Alibaba\\Logtail\\ilogtail.exe" "config" "user-defined-id" "${var.instance_name}"
+    </powershell>
+  EOF
 
   system_disk_category = "cloud_essd"
   system_disk_size     = 100
@@ -38,8 +53,8 @@ resource "alicloud_instance" "instance" {
 }
 
 resource "alicloud_eip" "eip" {
-  count = var.assign_public_ip ? 1 : 0
-  name  = "${var.instance_name}-eip"
+  count     = var.assign_public_ip ? 1 : 0
+  name      = "${var.instance_name}-eip"
   bandwidth = 12
 }
 
